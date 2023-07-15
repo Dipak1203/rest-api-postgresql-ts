@@ -4,7 +4,6 @@ import { Profile } from '../entities/Profile';
 import appDataSource from '../config/Conn';
 import { UserType,ProfileType } from '../constant/User';
 const userRepo = appDataSource.getRepository(User);
-const profileRepo = appDataSource.getRepository(Profile)
 
 const  UserController = {
 

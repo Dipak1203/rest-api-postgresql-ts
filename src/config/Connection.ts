@@ -10,4 +10,5 @@ export const {
   POSTGRES_DATABASE,
   POSTGRES_PORT = 5432,
   JWT_SECRET,
+  REFRESH_SECRET,
 } = process.env;
