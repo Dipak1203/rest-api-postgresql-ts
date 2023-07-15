@@ -1,14 +1,28 @@
-import jwt from 'jsonwebtoken'
+import jwt, { SignOptions } from 'jsonwebtoken';
 import dotenv from 'dotenv';
+
 dotenv.config();
 
-class JwtService{
-    static sign(payload:string,expiry='1h',secret= process.env.JWT_SECRET){
-        return jwt.sign(payload,secret,{expiresIn:expiry});
-    }
-    static verify(token:string,secret= process.env.JWT_SECRET){
-        return jwt.verify(token,secret);
-    }
+interface JwtPayload {
+  _id: string;
+  role: string;
+}
+
+class JwtService {
+  static sign(
+    payload: JwtPayload,
+    expiresIn: string = '1h',
+    secret: string = process.env.JWT_SECRET as string
+  ) {
+    const options: SignOptions = {
+      expiresIn,
+    };
+    return jwt.sign(payload, secret, options);
+  }
+
+  static verify(token: string, secret: string = process.env.JWT_SECRET as string) {
+    return jwt.verify(token, secret);
+  }
 }
 
 export default JwtService;
