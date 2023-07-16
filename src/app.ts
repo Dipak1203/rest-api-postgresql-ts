@@ -14,7 +14,7 @@ app.use(bodyParser.json())
 
 
 // Routes
-app.use("api/user",userRouter);
+app.use("/api/user",userRouter);
 app.use("/api/auth",adminRoute)
 const port = process.env.APP_PORT ?? 8000 ;
 appDataSource.initialize()

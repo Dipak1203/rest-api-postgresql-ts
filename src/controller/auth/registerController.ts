@@ -64,11 +64,11 @@ const registerController = {
       await adminRepo.save(admin);
 
       const access_token = JwtService.sign(
-        { _id: admin.id, role: admin.role },
+        { id: admin.id, role: admin.role },
         '1h' // Example: Expires in 1 hour
       );
       const refresh_token = JwtService.sign(
-        { _id: admin.id, role: admin.role },
+        { id: admin.id, role: admin.role },
         '1y' // Example: Expires in 1 year
       );
 
@@ -84,6 +84,7 @@ const registerController = {
       return next("err" + err);
     }
   },
+
 };
 
 export default registerController;

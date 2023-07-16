@@ -4,7 +4,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 interface JwtPayload {
-  _id: string;
+  id: string;
   role: string;
 }
 
@@ -20,8 +20,8 @@ class JwtService {
     return jwt.sign(payload, secret, options);
   }
 
-  static verify(token: string, secret: string = process.env.JWT_SECRET as string) {
-    return jwt.verify(token, secret);
+  static verify(token: string, secret: string = process.env.JWT_SECRET as string): JwtPayload {
+    return jwt.verify(token, secret) as JwtPayload;
   }
 }
 
