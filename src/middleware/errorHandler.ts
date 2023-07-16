@@ -1,15 +1,18 @@
-import { DEBUG_MODE } from "../config/index.js";
+import { DEBUG_MODE } from "../config/Connection";
 import pkg  from "joi";
-import CustomErrorHandler from "../service/CustomErrorHandler.js";
+import CustomErrorHandler from "../services/CustomErrorHandler.js";
+import { Request,Response,NextFunction } from "express";
 
 const {ValidationError} = pkg
 
-const errorHandler = (err, req, res, next) => {
+const errorHandler = (err:any, req:Request, res:Response, next:NextFunction) => {
   let statusCode = 500;
   let data = {
     message: "Internal server error",
     ...(DEBUG_MODE === "true" && { originalError: err.message }),
   };
+
+
 
   if (err instanceof ValidationError) {
     statusCode = 422;

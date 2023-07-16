@@ -11,4 +11,5 @@ export const {
   POSTGRES_PORT = 5432,
   JWT_SECRET,
   REFRESH_SECRET,
+  DEBUG_MODE
 } = process.env;
