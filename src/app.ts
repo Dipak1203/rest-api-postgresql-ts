@@ -5,6 +5,7 @@ import appDataSource from "./config/Conn";
 import bodyParser from "body-parser";
 import userRouter from "./routes/user.routes";
 import adminRoute from "./routes/admin.routes";
+import productRouter from "./routes/product.routes";
 dotenv.config();
 const app = express();
 
@@ -15,7 +16,8 @@ app.use(bodyParser.json())
 
 // Routes
 app.use("/api/user",userRouter);
-app.use("/api/auth",adminRoute)
+app.use("/api/auth",adminRoute);
+app.use("/api/product",productRouter)
 const port = process.env.APP_PORT ?? 8000 ;
 appDataSource.initialize()
 .then(() =>{
