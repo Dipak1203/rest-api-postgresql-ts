@@ -12,7 +12,7 @@ interface Iproduct {
   brand: string
 }
 const ProductController = {
-  async store(req: any, res: any) {
+  async store(req: Request, res: Response) {
     try {
       const { name, description, price, image_url, brand, category }: Iproduct = req.body
 
@@ -37,8 +37,22 @@ const ProductController = {
     try {
       let products = await productRepo.find()
       res.json({ products })
-    } catch (error) {}
+    } catch (error) {
+      res.json({ error })
+    }
   },
+
+  async delete(req:Request,res:Response){
+    try {
+      const id  = req.params.id;
+      const dlt = await productRepo.delete(id);
+      if(dlt){
+        res.json({message:"product delete success"});
+      }
+    } catch (error) {
+      
+    }
+  }
 }
 
 export default ProductController

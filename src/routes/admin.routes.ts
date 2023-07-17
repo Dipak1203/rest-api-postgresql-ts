@@ -7,7 +7,7 @@ import loginController from '../controller/auth/loginController'
 const adminRoute = express.Router();
 
 
-adminRoute.post("/register",[admin,auth],(req:Request,res:Response,next:NextFunction) =>{
+adminRoute.post("/register",(req:Request,res:Response,next:NextFunction) =>{
     refreshController.register(req,res,next)
 });
 

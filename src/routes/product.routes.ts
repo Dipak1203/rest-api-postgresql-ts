@@ -12,6 +12,11 @@ productRouter.post("/",(req:Request,res:Response) =>{
 
 productRouter.get("/",[auth,admin],(req:Request,res:Response) =>{
     ProductController.gets(req,res);
+});
+
+productRouter.delete("/:id",[auth,admin],(req:Request,res:Response) =>{
+    ProductController.delete(req,res);
 })
+
 
 export default productRouter
