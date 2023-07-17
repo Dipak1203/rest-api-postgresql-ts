@@ -1,9 +1,6 @@
 import Product from '../entities/Product'
-import { UpdateResult } from 'typeorm'
-import { Profile } from '../entities/Profile'
 import appDataSource from '../config/Conn'
-import { UserType, ProfileType } from '../constant/User'
-
+import { Request, Response } from 'express'
 const productRepo = appDataSource.getRepository(Product)
 
 interface Iproduct {
@@ -34,6 +31,13 @@ const ProductController = {
     } catch (error) {
       res.json({ error })
     }
+  },
+
+  async gets(req: Request, res: Response) {
+    try {
+      let products = await productRepo.find()
+      res.json({ products })
+    } catch (error) {}
   },
 }
 
