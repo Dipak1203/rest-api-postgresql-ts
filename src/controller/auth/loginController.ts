@@ -17,6 +17,8 @@ const adminRepo = appDataSource.getRepository(Admin)
 const refreshRepo = appDataSource.getRepository(RefreshToken)
 
 
+
+
 const loginController = {
   async login(req:Request, res:Response, next:NextFunction) {
     const loginSchema = Joi.object({
@@ -33,7 +35,6 @@ const loginController = {
     }
 
     const {email, password}:Data = req.body
-    // if user exist or not
     try {
       const user = await adminRepo.findOne({
         where:{
@@ -44,13 +45,11 @@ const loginController = {
         return next(CustomErrorHandler.notFound());
       }
 
-      // compare the password
       const match = await bcrypt.compare(password, user.password);
       if (!match) {
         return next(CustomErrorHandler.wrongCredentials());
       }
 
-      // Toekn
       const access_token = JwtService.sign({ id: user.id, role: user.role});
       const refresh_token = JwtService.sign(
         { id: user.id, role: user.role },
@@ -64,26 +63,28 @@ const loginController = {
     }
   },
 
-  // logout
+  async logout(req: Request, res: Response, next: NextFunction) {
+    const refreshSchema = Joi.object({
+      refresh_token: Joi.string().required(),
+    });
 
-//   async logout(req:, res, next) {
-//     // validation
-//     // validation
-//     const refreshSchema = Joi.object({
-//       refresh_token: Joi.string().required(),
-//     });
-//     const { error } = refreshSchema.validate(req.body);
+    const { error } = refreshSchema.validate(req.body);
 
-//     if (error) {
-//       return next(error);
-//     }
-//     try {
-//       await RefreshToken.deleteOne({ token: req.body.refresh_token });
-//     } catch (error) {
-//       return next(new Error("Something went wrong in the database"));
-//     }
-//     res.json({ status: 1 });
-//   },
+    if (error) {
+      return next(error);
+    }
+
+    try {
+      const { refresh_token } = req.body;
+      
+      const decoded = JwtService.verify(refresh_token, REFRESH_SECRET);
+      
+      await refreshRepo.delete({ token: refresh_token });
+      
+      res.json({ message: "Logout success" });
+    } catch (error) {
+      return next(new Error("Something went wrong in the database"));
+    }
+  },
 };
-
 export default loginController;

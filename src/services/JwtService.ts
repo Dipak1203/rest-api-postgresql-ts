@@ -11,7 +11,7 @@ interface JwtPayload {
 class JwtService {
   static sign(
     payload: JwtPayload,
-    expiresIn: string = '1h',
+    expiresIn: string = '1m',
     secret: string = process.env.JWT_SECRET as string
   ) {
     const options: SignOptions = {
