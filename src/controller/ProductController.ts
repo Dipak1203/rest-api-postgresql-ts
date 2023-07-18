@@ -1,7 +1,10 @@
-import Product from '../entities/Product'
+import Product from '../entities/Product.entity'
 import appDataSource from '../config/Conn'
 import { Request, Response } from 'express'
+import ProductService from '../services/product.service'
+import { ProductDTO } from '../dtos/product.dto'
 const productRepo = appDataSource.getRepository(Product)
+
 
 interface Iproduct {
   name: string
@@ -12,34 +15,29 @@ interface Iproduct {
   brand: string
 }
 const ProductController = {
+
   async store(req: Request, res: Response) {
     try {
-      const { name, description, price, image_url, brand, category }: Iproduct = req.body
-
-      const product = productRepo.create({
-        name,
-        description,
-        price,
-        image_url,
-        brand,
-        category,
-      })
-      const document = await productRepo.save(product)
-      if (document) {
-        res.json({ document })
-      }
+      const data = req.body as ProductDTO
+      const product = await ProductService.create(data);
+      res.status(200).json({
+        status:'success',
+        payload: product,
+        message:"Product create success"
+      });
+      
     } catch (error) {
       res.json({ error })
     }
   },
 
   async gets(req: Request, res: Response) {
-    try {
-      let products = await productRepo.find()
-      res.json({ products })
-    } catch (error) {
-      res.json({ error })
-    }
+    const product = await ProductService.gets();
+    res.status(200).json({
+      status:'success',
+      payload: product,
+      message:"Product fetch success"
+    })
   },
 
   async delete(req:Request,res:Response){

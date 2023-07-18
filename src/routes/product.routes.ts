@@ -10,7 +10,7 @@ productRouter.post("/",(req:Request,res:Response) =>{
     ProductController.store(req,res);
 });
 
-productRouter.get("/",[auth,admin],(req:Request,res:Response) =>{
+productRouter.get("/",(req:Request,res:Response) =>{
     ProductController.gets(req,res);
 });
 
