@@ -20,13 +20,12 @@ export class ProductDTO {
   @IsString()
   category: string
 
-
+  @IsNotEmpty()
   @IsString()
   image_url: string
 
   @IsOptional()
   createAt: Date
-
   
   @IsOptional()
   updateAt: Date

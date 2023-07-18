@@ -19,7 +19,7 @@ const ProductController = {
   async store(req: Request, res: Response) {
     try {
       const data = req.body as ProductDTO
-      const product = await ProductService.create(req.body);
+      const product = await ProductService.create(data);
       res.status(200).json({
         status:'success',
         payload: product,
