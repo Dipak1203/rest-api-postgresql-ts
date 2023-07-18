@@ -21,7 +21,6 @@ export class ProductDTO {
   category: string
 
 
-  @IsOptional()
   @IsString()
   image_url: string
 

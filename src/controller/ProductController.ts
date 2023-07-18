@@ -19,13 +19,13 @@ const ProductController = {
   async store(req: Request, res: Response) {
     try {
       const data = req.body as ProductDTO
-      const product = await ProductService.create(data);
+      const product = await ProductService.create(req.body);
       res.status(200).json({
         status:'success',
         payload: product,
         message:"Product create success"
       });
-      
+
     } catch (error) {
       res.json({ error })
     }
