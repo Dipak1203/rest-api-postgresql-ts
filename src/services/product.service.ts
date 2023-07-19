@@ -26,6 +26,12 @@ class ProductService{
         })
     }
 
+    async delete(id:string){
+        return await this.productRepo.delete({
+            id:id
+        })
+    }
+
 }
 
 export default new ProductService

@@ -6,11 +6,11 @@ import admin from '../middleware/admin';
 const productRouter = express.Router();
 
 
-productRouter.post("/",(req:Request,res:Response) =>{
+productRouter.post("/",[auth,admin],(req:Request,res:Response) =>{
     ProductController.store(req,res);
 });
 
-productRouter.get("/",(req:Request,res:Response) =>{
+productRouter.get("/",[auth,admin],(req:Request,res:Response) =>{
     ProductController.gets(req,res);
 });
 

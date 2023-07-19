@@ -42,15 +42,21 @@ const ProductController = {
 
   async delete(req:Request,res:Response){
     try {
-      const id  = req.params.id;
-      const dlt = await productRepo.delete(id);
-      if(dlt){
-        res.json({message:"product delete success"});
-      }
+      const id:string  = req.params.id;
+      const product = await ProductService.delete(id);
+      res.status(200).json({
+        status:'success',
+        payload: product,
+        message:"Product create success"
+      });
     } catch (error) {
-      
+      res.status(500).json({
+        status:'unsuccess',
+        message:"Product can not delete",
+        payload:error
+      })
     }
-  }
+  },
 }
 
 export default ProductController
