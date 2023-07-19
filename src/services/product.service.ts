@@ -3,10 +3,11 @@ import appDataSource from '../config/Conn'
 import { ProductDTO } from '../dtos/product.dto'
 import CustomErrorHandler from './CustomErrorHandler'
 
+
 class ProductService {
   constructor(private readonly productRepo = appDataSource.getRepository(Product)) {}
-
-  async create(data: ProductDTO) {
+ 
+  async create(data: ProductDTO,image?: Express.Multer.File) {
     const product = new Product()
     product.name = data.name
     product.description = data.description
@@ -14,8 +15,11 @@ class ProductService {
     product.brand = data.brand
     product.category = data.category
     product.image_url = data.image_url
-
-    return await this.productRepo.save(product)
+    if (image) {
+        product.image_url = image.path; // Store the image path in the database
+      }
+  
+      return await this.productRepo.save(product)
   }
 
   async gets() {
