@@ -57,6 +57,20 @@ const ProductController = {
       })
     }
   },
+
+  async get(req:Request,res:Response){
+    try {
+      const id:string = req.params.id;
+      const product = await ProductService.get(id);
+      res.status(200).json({
+        status:'success',
+        payload: product,
+        message:"Product create success"
+      });
+    } catch (error) {
+      
+    }
+  }
 }
 
 export default ProductController

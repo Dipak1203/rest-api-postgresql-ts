@@ -32,6 +32,13 @@ class ProductService{
         })
     }
 
+    async get(id:string){
+        return await this.productRepo.findOne({
+            where:{
+                id:id
+            }
+        })
+    }
 }
 
 export default new ProductService

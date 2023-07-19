@@ -14,6 +14,10 @@ productRouter.get("/",[auth,admin],(req:Request,res:Response) =>{
     ProductController.gets(req,res);
 });
 
+productRouter.get("/:id",[auth,admin],(req:Request,res:Response) =>{
+    ProductController.get(req,res)
+})
+
 productRouter.delete("/:id",[auth,admin],(req:Request,res:Response) =>{
     ProductController.delete(req,res);
 })
