@@ -1,4 +1,4 @@
-import { IsString, IsDateString, IsNotEmpty, IsOptional } from 'class-validator'
+import { IsString, IsDateString, IsNotEmpty, IsOptional, IsUUID } from 'class-validator'
 export class ProductDTO {
   @IsNotEmpty()
   @IsDateString()
@@ -26,16 +26,13 @@ export class ProductDTO {
 
   @IsOptional()
   createAt: Date
-  
+
   @IsOptional()
   updateAt: Date
-
-  
 }
-export class UpdateProductDTO {
-  @IsOptional()
-  date: Date
-
-  @IsOptional()
-  description: string
+export class UpdateProductDTO extends ProductDTO {
+  @IsUUID()
+  @IsNotEmpty()
+  @IsString()
+  id: string
 }

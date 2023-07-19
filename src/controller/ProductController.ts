@@ -2,7 +2,7 @@ import Product from '../entities/Product.entity'
 import appDataSource from '../config/Conn'
 import { Request, Response } from 'express'
 import ProductService from '../services/product.service'
-import { ProductDTO } from '../dtos/product.dto'
+import { ProductDTO, UpdateProductDTO } from '../dtos/product.dto'
 const productRepo = appDataSource.getRepository(Product)
 
 
@@ -68,7 +68,30 @@ const ProductController = {
         message:"Product create success"
       });
     } catch (error) {
-      
+      res.status(500).json({
+        status:'unsuccess',
+        message:"Product can not fetch",
+        payload:error
+      })
+    }
+  },
+
+  async update(req:Request,res:Response){
+    try{
+        const id: string = req.params.id;
+        const data = req.body as UpdateProductDTO
+        const product = await ProductService.update(id,data)
+        res.status(200).json({
+          status:'success',
+          payload: product,
+          message:"Product update success"
+        });
+    }catch(error){
+      res.status(500).json({
+        status:'unsuccess',
+        message:"Product can not update",
+        payload:error
+      })
     }
   }
 }

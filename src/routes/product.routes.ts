@@ -20,7 +20,10 @@ productRouter.get("/:id",[auth,admin],(req:Request,res:Response) =>{
 
 productRouter.delete("/:id",[auth,admin],(req:Request,res:Response) =>{
     ProductController.delete(req,res);
-})
+});
 
+productRouter.patch("/:id",[admin,auth],(req:Request,res:Response) =>{
+    ProductController.update(req,res);
+})
 
 export default productRouter
